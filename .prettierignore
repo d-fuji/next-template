@@ -1,0 +1,10 @@
+src/generated/
+.next/
+node_modules/
+package-lock.json
+prisma/migrations/
+docker-compose.yml
+.env*
+.vercel
+.claude/
+.serena/

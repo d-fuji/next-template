@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# {{PROJECT_NAME}}
 
-## Getting Started
+{{PROJECT_DESCRIPTION}}
 
-First, run the development server:
+## 技術スタック
+
+| 技術                                          | 用途              |
+| --------------------------------------------- | ----------------- |
+| [Next.js](https://nextjs.org/) (App Router)   | フレームワーク    |
+| [TypeScript](https://www.typescriptlang.org/) | 言語              |
+| [Tailwind CSS](https://tailwindcss.com/) v4   | スタイル          |
+| [shadcn/ui](https://ui.shadcn.com/) v4        | UI コンポーネント |
+| [SWR](https://swr.vercel.app/)                | データ取得        |
+| [Prisma](https://www.prisma.io/) v7           | ORM               |
+| [PostgreSQL](https://www.postgresql.org/)     | データベース      |
+| [Auth.js](https://authjs.dev/) v5             | 認証              |
+| [Vitest](https://vitest.dev/)                 | テスト            |
+| [Vercel](https://vercel.com/)                 | デプロイ          |
+
+## セットアップ
 
 ```bash
+npm install
+docker compose up -d
+cp .env.sample .env
+npm run db:migrate
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## npm scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| コマンド                         | 用途                       |
+| -------------------------------- | -------------------------- |
+| `npm run dev`                    | 開発サーバー起動           |
+| `npm run build`                  | プロダクションビルド       |
+| `npm run start`                  | ビルド後サーバー起動       |
+| `npm run lint`                   | ESLint 実行                |
+| `npm run format`                 | Prettier 修正              |
+| `npm run format:check`           | Prettier チェック          |
+| `npm run test`                   | テスト実行                 |
+| `npm run test:watch`             | テスト watch モード        |
+| `npm run db:generate`            | Prisma Client 再生成       |
+| `npm run db:migrate`             | マイグレーション作成・適用 |
+| `npm run db:migrate:status`      | マイグレーション状況確認   |
+| `npm run db:seed`                | シードデータ投入           |
+| `npm run db:reset`               | DB 初期化                  |
+| `npm run db:prod:migrate`        | 本番マイグレーション適用   |
+| `npm run db:prod:seed`           | 本番シードデータ投入       |
+| `npm run db:prod:status`         | 本番マイグレーション状況確認 |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ディレクトリ構成
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/           # ページ + API routes
+  components/    # UI コンポーネント
+    ui/          # shadcn/ui コンポーネント
+  lib/           # ユーティリティ
+  types/         # 型定義
+  mocks/         # MSW モック
+prisma/          # schema / seed / migrations
+docs/
+  openapi.yaml   # API 仕様
+  specs/         # 機能仕様書
+```

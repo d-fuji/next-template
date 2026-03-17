@@ -1,0 +1,23 @@
+openapi: "3.0.3"
+info:
+  title: "{{PROJECT_NAME}} API"
+  version: "0.1.0"
+  description: "{{PROJECT_DESCRIPTION}}"
+
+servers:
+  - url: /api
+    description: Next.js API Routes
+
+paths: {}
+# エンドポイントは docs/specs/ の仕様確定後に追加
+
+components:
+  schemas: {}
+  # スキーマは docs/specs/ の仕様確定後に追加
+
+  securitySchemes:
+    session:
+      type: apiKey
+      in: cookie
+      name: next-auth.session-token
+      description: Auth.js セッションクッキー
