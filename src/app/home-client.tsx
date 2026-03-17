@@ -137,11 +137,11 @@ function Terminal() {
 
   return (
     <div
-      className="overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-950 shadow-2xl"
+      className="overflow-hidden rounded-2xl border border-white/8 bg-zinc-950 shadow-2xl"
       data-testid="terminal"
     >
       {/* Title bar — sticky within terminal */}
-      <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-white/[0.06] bg-zinc-950 px-4 py-2.5">
+      <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-white/6 bg-zinc-950 px-4 py-2.5">
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
         <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />
@@ -192,7 +192,7 @@ export function HomeClient() {
         {/* Hero */}
         <section className="animate-fade-in-up space-y-3 text-center">
           <h1
-            className="animate-gradient bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl"
+            className="animate-gradient bg-linear-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl"
             data-testid="project-name"
           >
             {"{{PROJECT_NAME}}"}
@@ -216,7 +216,7 @@ export function HomeClient() {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="space-y-2 rounded-xl border border-foreground/[0.08] p-3.5"
+              className="space-y-2 rounded-xl border border-foreground/8 p-3.5"
             >
               <div className="text-xs font-semibold text-foreground">{f.title}</div>
               <ul className="space-y-1">
