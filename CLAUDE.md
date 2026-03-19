@@ -29,16 +29,20 @@ spec → openapi → prisma → 実装コード
 
 ## 技術スタック
 
-| レイヤー       | 技術                              |
-| -------------- | --------------------------------- |
-| フレームワーク | Next.js (App Router) / Vercel     |
-| 言語           | TypeScript 5 (strict)             |
-| スタイル       | Tailwind CSS v4 / shadcn/ui v4    |
-| データ取得     | SWR                               |
-| ORM / DB       | Prisma v7 + PostgreSQL (Neon)     |
-| 認証           | Auth.js v5 (next-auth)            |
-| テスト         | Vitest + Testing Library + MSW    |
-| リンター       | ESLint 9 (flat config) + Prettier |
+| レイヤー       | 技術                                  |
+| -------------- | ------------------------------------- |
+| フレームワーク | Next.js (App Router) / Vercel         |
+| 言語           | TypeScript 5 (strict)                 |
+| スタイル       | Tailwind CSS v4 / shadcn/ui v4        |
+| UI             | Base UI / Framer Motion / Recharts    |
+| フォーム       | React Hook Form + Zod                 |
+| データ取得     | SWR                                   |
+| ユーティリティ | date-fns / nuqs / Sonner / next-themes |
+| 環境変数       | @t3-oss/env-nextjs                    |
+| ORM / DB       | Prisma v7 + PostgreSQL (Neon)         |
+| 認証           | Auth.js v5 (next-auth)                |
+| テスト         | Vitest + Testing Library + MSW        |
+| リンター       | ESLint 9 (flat config) + Prettier     |
 
 詳細は `docs/tech-stack.md` を参照。
 
