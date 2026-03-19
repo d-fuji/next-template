@@ -2,22 +2,32 @@
 
 ## バージョン一覧
 
-| 技術            | バージョン | 用途                        |
-| --------------- | ---------- | --------------------------- |
-| Next.js         | 16         | フレームワーク (App Router) |
-| TypeScript      | 5          | 言語 (strict)               |
-| React           | 19         | UI                          |
-| Tailwind CSS    | 4          | スタイル                    |
-| shadcn/ui       | 4          | UI コンポーネント           |
-| SWR             | 2          | データ取得                  |
-| Prisma          | 7          | ORM                         |
-| PostgreSQL      | 16         | DB (Neon for production)    |
-| Auth.js         | 5 (beta)   | 認証 (next-auth v5)         |
-| Vitest          | 4          | テストランナー              |
-| Testing Library | 16         | コンポーネントテスト        |
-| MSW             | 2          | API モック                  |
-| ESLint          | 9          | リンター (flat config)      |
-| Prettier        | 3          | フォーマッター              |
+| 技術            | バージョン | 用途                           |
+| --------------- | ---------- | ------------------------------ |
+| Next.js         | 16         | フレームワーク (App Router)    |
+| TypeScript      | 5          | 言語 (strict)                  |
+| React           | 19         | UI                             |
+| Tailwind CSS    | 4          | スタイル                       |
+| shadcn/ui       | 4          | UI コンポーネント              |
+| Base UI         | 1          | アクセシブル UI プリミティブ   |
+| Framer Motion   | 12         | アニメーション                 |
+| React Hook Form | 7          | フォーム状態管理               |
+| Zod             | 4          | スキーマバリデーション         |
+| SWR             | 2          | データ取得                     |
+| nuqs            | 2          | URL ステート管理               |
+| Recharts        | 3          | チャート                       |
+| Sonner          | 2          | トースト通知                   |
+| date-fns        | 4          | 日付操作                       |
+| next-themes     | 0.4        | テーマ管理                     |
+| @t3-oss/env     | 0.13       | 環境変数バリデーション         |
+| Prisma          | 7          | ORM                            |
+| PostgreSQL      | 16         | DB (Neon for production)       |
+| Auth.js         | 5 (beta)   | 認証 (next-auth v5)            |
+| Vitest          | 4          | テストランナー                 |
+| Testing Library | 16         | コンポーネントテスト           |
+| MSW             | 2          | API モック                     |
+| ESLint          | 9          | リンター (flat config)         |
+| Prettier        | 3          | フォーマッター                 |
 
 ## 設定ファイル
 
