@@ -8,8 +8,7 @@ url.searchParams.set("idle_in_transaction_session_timeout", "300000");
 const adapter = new PrismaPg({ connectionString: url.toString() });
 const prisma = new PrismaClient({ adapter });
 
-const IS_REMOTE =
-  url.hostname.includes("neon.tech") || url.hostname.includes("pooler");
+const IS_REMOTE = url.hostname.includes("neon.tech") || url.hostname.includes("pooler");
 
 async function main() {
   console.log(`🌱 Seeding database... (${IS_REMOTE ? "remote" : "local"})`);

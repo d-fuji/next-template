@@ -1,19 +1,15 @@
 import { render, type RenderOptions } from "@testing-library/react";
 import { type ReactElement } from "react";
+import { SWRConfig } from "swr";
 
-// SWR 導入時に SWRTestProvider を追加する
-// import { SWRConfig } from "swr";
-//
-// function SWRTestProvider({ children }: { children: React.ReactNode }) {
-//   return (
-//     <SWRConfig value={{ provider: () => new Map(), dedupingInterval: 0 }}>
-//       {children}
-//     </SWRConfig>
-//   );
-// }
+function SWRTestProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <SWRConfig value={{ provider: () => new Map(), dedupingInterval: 0 }}>{children}</SWRConfig>
+  );
+}
 
 function customRender(ui: ReactElement, options?: Omit<RenderOptions, "wrapper">) {
-  return render(ui, { ...options });
+  return render(ui, { wrapper: SWRTestProvider, ...options });
 }
 
 export { customRender as render };

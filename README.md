@@ -29,24 +29,24 @@ npm run dev
 
 ## npm scripts
 
-| コマンド                         | 用途                       |
-| -------------------------------- | -------------------------- |
-| `npm run dev`                    | 開発サーバー起動           |
-| `npm run build`                  | プロダクションビルド       |
-| `npm run start`                  | ビルド後サーバー起動       |
-| `npm run lint`                   | ESLint 実行                |
-| `npm run format`                 | Prettier 修正              |
-| `npm run format:check`           | Prettier チェック          |
-| `npm run test`                   | テスト実行                 |
-| `npm run test:watch`             | テスト watch モード        |
-| `npm run db:generate`            | Prisma Client 再生成       |
-| `npm run db:migrate`             | マイグレーション作成・適用 |
-| `npm run db:migrate:status`      | マイグレーション状況確認   |
-| `npm run db:seed`                | シードデータ投入           |
-| `npm run db:reset`               | DB 初期化                  |
-| `npm run db:prod:migrate`        | 本番マイグレーション適用   |
-| `npm run db:prod:seed`           | 本番シードデータ投入       |
-| `npm run db:prod:status`         | 本番マイグレーション状況確認 |
+| コマンド                    | 用途                         |
+| --------------------------- | ---------------------------- |
+| `npm run dev`               | 開発サーバー起動             |
+| `npm run build`             | プロダクションビルド         |
+| `npm run start`             | ビルド後サーバー起動         |
+| `npm run lint`              | ESLint 実行                  |
+| `npm run format`            | Prettier 修正                |
+| `npm run format:check`      | Prettier チェック            |
+| `npm run test`              | テスト実行                   |
+| `npm run test:watch`        | テスト watch モード          |
+| `npm run db:generate`       | Prisma Client 再生成         |
+| `npm run db:migrate`        | マイグレーション作成・適用   |
+| `npm run db:migrate:status` | マイグレーション状況確認     |
+| `npm run db:seed`           | シードデータ投入             |
+| `npm run db:reset`          | DB 初期化                    |
+| `npm run db:prod:migrate`   | 本番マイグレーション適用     |
+| `npm run db:prod:seed`      | 本番シードデータ投入         |
+| `npm run db:prod:status`    | 本番マイグレーション状況確認 |
 
 ## ディレクトリ構成
 

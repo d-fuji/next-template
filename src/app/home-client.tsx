@@ -214,10 +214,7 @@ export function HomeClient() {
         {/* Features — 3 columns */}
         <div className="animate-fade-in-up delay-400 grid grid-cols-3 gap-3" data-testid="features">
           {FEATURES.map((f) => (
-            <div
-              key={f.title}
-              className="space-y-2 rounded-xl border border-foreground/8 p-3.5"
-            >
+            <div key={f.title} className="space-y-2 rounded-xl border border-foreground/8 p-3.5">
               <div className="text-xs font-semibold text-foreground">{f.title}</div>
               <ul className="space-y-1">
                 {f.items.map((item) => (
