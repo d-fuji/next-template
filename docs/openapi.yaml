@@ -8,16 +8,114 @@ servers:
   - url: /api
     description: Next.js API Routes
 
-paths: {}
-# エンドポイントは docs/specs/ の仕様確定後に追加
+paths:
+  /users:
+    post:
+      summary: ユーザー登録
+      tags: [auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterInput"
+      responses:
+        "201":
+          description: 登録成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "409":
+          description: メールアドレス重複
+
+  /auth/{nextauth}:
+    get:
+      summary: Auth.js ハンドラー (GET)
+      tags: [auth]
+      parameters:
+        - name: nextauth
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Auth.js レスポンス
+    post:
+      summary: Auth.js ハンドラー (POST)
+      tags: [auth]
+      parameters:
+        - name: nextauth
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Auth.js レスポンス
 
 components:
-  schemas: {}
-  # スキーマは docs/specs/ の仕様確定後に追加
+  schemas:
+    RegisterInput:
+      type: object
+      required: [email, password, name]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+          maxLength: 100
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          nullable: true
+        email:
+          type: string
+          format: email
+        image:
+          type: string
+          nullable: true
+
+  responses:
+    BadRequest:
+      description: バリデーションエラー
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    Unauthorized:
+      description: 未認証
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
 
   securitySchemes:
     session:
       type: apiKey
       in: cookie
       name: next-auth.session-token
-      description: Auth.js セッションクッキー
+      description: Auth.js セッションクッキー（JWT 戦略）

@@ -28,6 +28,8 @@
 | MSW             | 2          | API モック                   |
 | ESLint          | 9          | リンター (flat config)       |
 | Prettier        | 3          | フォーマッター               |
+| tw-animate-css  | 1          | CSS アニメーション           |
+| bcryptjs        | 3          | パスワードハッシュ           |
 
 ## 設定ファイル
 

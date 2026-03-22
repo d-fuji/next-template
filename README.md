@@ -23,6 +23,7 @@
 npm install
 docker compose up -d
 cp .env.sample .env
+# .env に AUTH_SECRET, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET を設定
 npm run db:migrate
 npm run dev
 ```
@@ -52,14 +53,32 @@ npm run dev
 
 ```
 src/
-  app/           # ページ + API routes
-  components/    # UI コンポーネント
-    ui/          # shadcn/ui コンポーネント
-  lib/           # ユーティリティ
-  types/         # 型定義
-  mocks/         # MSW モック
-prisma/          # schema / seed / migrations
+  app/
+    (app)/         # 認証必須ページ（レイアウトで認証ガード）
+      dashboard/   # ダッシュボード
+    (auth)/        # 未認証向けページ
+      login/       # ログイン / 新規登録
+    api/
+      auth/        # Auth.js ハンドラー
+      users/       # ユーザー登録
+  components/
+    ui/            # shadcn/ui コンポーネント
+    providers.tsx  # SessionProvider + SWRConfig
+    form-dialog.tsx  # 汎用フォームダイアログ
+    form-field.tsx   # 汎用フォームフィールド
+  lib/
+    auth.ts        # Auth.js 設定
+    auth-service.ts  # 認証ロジック
+    api-utils.ts   # サーバー側 API ユーティリティ
+    client/api.ts  # クライアント側 API ユーティリティ
+    fetcher.ts     # SWR フェッチャー
+    prisma.ts      # Prisma クライアント
+    hooks/         # カスタムフック
+    validations/   # Zod バリデーションスキーマ
+  types/           # 型定義
+  mocks/           # MSW モック
+prisma/            # schema / seed / migrations
 docs/
-  openapi.yaml   # API 仕様
-  specs/         # 機能仕様書
+  openapi.yaml     # API 仕様
+  specs/           # 機能仕様書
 ```

@@ -1,13 +1,15 @@
 import { http, HttpResponse } from "msw";
 
-// API ハンドラーを追加していく
-// 例:
-// http.get("/api/example", () => {
-//   return HttpResponse.json({ message: "Hello" });
-// }),
-
 export const handlers = [
   http.get("/api/health", () => {
     return HttpResponse.json({ status: "ok" });
+  }),
+
+  http.post("/api/users", async ({ request }) => {
+    const body = (await request.json()) as { email?: string; name?: string };
+    return HttpResponse.json(
+      { id: "test-user-id", email: body.email, name: body.name },
+      { status: 201 }
+    );
   }),
 ];

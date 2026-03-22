@@ -46,6 +46,32 @@ spec → openapi → prisma → 実装コード
 
 詳細は `docs/tech-stack.md` を参照。
 
+## 認証
+
+- 設定: `src/lib/auth.ts`（Auth.js v5 / Google + Credentials / JWT 戦略）
+- サービス: `src/lib/auth-service.ts`（登録・認証ロジック）
+- バリデーション: `src/lib/validations/auth.ts`（Zod スキーマ）
+- API: `src/app/api/auth/[...nextauth]/route.ts` / `src/app/api/users/route.ts`
+- ページ: `src/app/(auth)/login/`（ログイン/登録切替 + Google OAuth）
+- 認証ガード: `src/app/(app)/layout.tsx` で未認証ユーザーを `/login` にリダイレクト
+
+## API パターン
+
+- サーバー側ユーティリティ: `src/lib/api-utils.ts`
+  - `AppError` — ステータスコード付きカスタムエラー
+  - `getSessionUserId()` — セッションからユーザーID取得
+  - `handleError()` — エラーを NextResponse に変換
+  - `parseBody()` — リクエストボディの Zod バリデーション
+- クライアント側ユーティリティ: `src/lib/client/api.ts`
+  - `ApiError` / `post()` / `patch()` / `del()`
+- SWR フェッチャー: `src/lib/fetcher.ts`
+- フォーム送信: `src/lib/hooks/form-utils.ts`（`submitForm()` で toast + エラー処理を統一）
+
+## レイアウトグループ
+
+- `(app)` — 認証必須ページ（layout.tsx で認証ガード）
+- `(auth)` — 未認証ユーザー向けページ（ログイン等）
+
 ## Prisma・DB 運用
 
 `.claude/rules/prisma.md` を参照。
