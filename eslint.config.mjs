@@ -19,8 +19,7 @@ const eslintConfig = defineConfig([
             {
               name: "react",
               importNames: ["useMemo", "useCallback", "memo"],
-              message:
-                "React Compiler が自動メモ化するため useMemo/useCallback/memo は不要です。",
+              message: "React Compiler が自動メモ化するため useMemo/useCallback/memo は不要です。",
             },
           ],
         },

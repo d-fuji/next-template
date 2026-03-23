@@ -7,3 +7,10 @@ export type User = {
   email: string;
   image: string | null;
 };
+
+export type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+  createdAt: string;
+};

@@ -32,11 +32,7 @@ import { AppError } from "@/lib/api-utils";
 
 type RouteParams = Record<string, string>;
 
-type HandlerContext<
-  TQuery = undefined,
-  TBody = undefined,
-  TAuth extends boolean = false,
-> = {
+type HandlerContext<TQuery = undefined, TBody = undefined, TAuth extends boolean = false> = {
   request: NextRequest;
   params: RouteParams;
 } & (TAuth extends true ? { userId: string } : { userId?: undefined }) &
@@ -49,11 +45,7 @@ type HandlerFn<TQuery, TBody, TAuth extends boolean> = (
 
 // ===== ビルダー =====
 
-class ApiHandlerBuilder<
-  TQuery = undefined,
-  TBody = undefined,
-  TAuth extends boolean = false,
-> {
+class ApiHandlerBuilder<TQuery = undefined, TBody = undefined, TAuth extends boolean = false> {
   private authRequired = false as TAuth;
   private querySchema?: z.ZodSchema;
   private bodySchema?: z.ZodSchema;
@@ -84,10 +76,7 @@ class ApiHandlerBuilder<
 
   handle(
     fn: HandlerFn<TQuery, TBody, TAuth>
-  ): (
-    request: NextRequest,
-    context: { params: Promise<RouteParams> }
-  ) => Promise<NextResponse> {
+  ): (request: NextRequest, context: { params: Promise<RouteParams> }) => Promise<NextResponse> {
     const { authRequired, querySchema, bodySchema, statusCode } = this;
 
     return async (request, context) => {
@@ -110,10 +99,7 @@ class ApiHandlerBuilder<
           const raw = Object.fromEntries(request.nextUrl.searchParams);
           const result = querySchema.safeParse(raw);
           if (!result.success) {
-            throw new AppError(
-              result.error.issues.map((i) => i.message).join(", "),
-              400
-            );
+            throw new AppError(result.error.issues.map((i) => i.message).join(", "), 400);
           }
           query = result.data as TQuery;
         }
@@ -124,10 +110,7 @@ class ApiHandlerBuilder<
           const raw = await request.json();
           const result = bodySchema.safeParse(raw);
           if (!result.success) {
-            throw new AppError(
-              result.error.issues.map((i) => i.message).join(", "),
-              400
-            );
+            throw new AppError(result.error.issues.map((i) => i.message).join(", "), 400);
           }
           body = result.data as TBody;
         }
@@ -145,16 +128,10 @@ class ApiHandlerBuilder<
         return NextResponse.json(result, { status: statusCode });
       } catch (error) {
         if (error instanceof AppError) {
-          return NextResponse.json(
-            { error: error.message },
-            { status: error.statusCode }
-          );
+          return NextResponse.json({ error: error.message }, { status: error.statusCode });
         }
         console.error("Unexpected error:", error);
-        return NextResponse.json(
-          { error: "サーバーエラーが発生しました" },
-          { status: 500 }
-        );
+        return NextResponse.json({ error: "サーバーエラーが発生しました" }, { status: 500 });
       }
     };
   }
