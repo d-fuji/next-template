@@ -1,23 +1,20 @@
 {
   "permissions": {
-    "allow": ["*"],
+    "allow": [
+      "*"
+    ],
     "deny": [
-      // ═══ ファイル破壊 ═══
       "Bash(rm -rf *)",
       "Bash(rm -r *)",
       "Bash(chmod -R *)",
       "Bash(chown -R *)",
       "Bash(mv /* *)",
-
-      // ═══ 機密ファイル漏洩 ═══
       "Bash(cat *.env*)",
       "Bash(echo *>.env*)",
       "Bash(cp .env*)",
       "Read(**/.env)",
       "Read(**/.env.production)",
       "Read(**/.env.local)",
-
-      // ═══ Git — 破壊・履歴改変 ═══
       "Bash(git push --force*)",
       "Bash(git push *--force*)",
       "Bash(git reset --hard*)",
@@ -28,13 +25,9 @@
       "Bash(git stash drop*)",
       "Bash(git stash clear*)",
       "Bash(git rebase *)",
-
-      // ═══ Git — リモート操作 ═══
       "Bash(git push*)",
       "Bash(gh pr *)",
       "Bash(gh issue *)",
-
-      // ═══ DB — 破壊的操作 ═══
       "Bash(npx prisma migrate reset*)",
       "Bash(npm run db:reset*)",
       "Bash(npx prisma db push --force-reset*)",
@@ -42,29 +35,19 @@
       "Bash(docker exec * psql * DROP*)",
       "Bash(docker exec * psql * TRUNCATE*)",
       "Bash(docker exec * psql * DELETE*)",
-
-      // ═══ DB — 本番操作 ═══
       "Bash(npm run db:prod:*)",
       "Bash(dotenv -e .env.production*)",
-
-      // ═══ Docker — 破壊的操作 ═══
       "Bash(docker compose down -v*)",
       "Bash(docker compose rm*)",
       "Bash(docker volume rm*)",
       "Bash(docker system prune*)",
-
-      // ═══ 外部通信 ═══
       "Bash(curl * -X POST*)",
       "Bash(curl * -X PUT*)",
       "Bash(curl * -X DELETE*)",
       "Bash(curl * -X PATCH*)",
-
-      // ═══ パッケージ — 破壊的操作 ═══
       "Bash(npm publish*)",
       "Bash(npm uninstall *)",
       "Bash(npx vercel *)",
-
-      // ═══ 設定ファイル保護 ═══
       "Edit(**/.claude/settings.json)",
       "Write(**/.claude/settings.json)"
     ]
