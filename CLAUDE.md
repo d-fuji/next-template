@@ -5,6 +5,28 @@
 - 同じミスは 2 度目で仕組みで防ぐ（ルール化 → `.claude/rules/` or `.claude/skills/`）
 - CLAUDE.md のセクションが肥大化したら `.claude/rules/` や `.claude/skills/` に分離する
 
+## ローカル開発の起動手順
+
+```bash
+# 1. 環境変数を準備（初回のみ）
+cp .env.sample .env  # 必要に応じて値を編集
+
+# 2. 依存パッケージをインストール（初回 or 更新時）
+npm install
+
+# 3. Docker で PostgreSQL を起動
+docker compose up -d
+
+# 4. DB マイグレーション & シード（初回 or スキーマ変更時）
+npx prisma migrate dev
+npx prisma db seed
+
+# 5. dev サーバーを起動
+npm run dev
+```
+
+**前提**: Docker Desktop（または互換ランタイム）がインストール済みであること。
+
 ## プロダクト概要
 
 {{PROJECT_DESCRIPTION}}
