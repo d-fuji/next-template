@@ -1,15 +1,11 @@
 ---
 name: tdd
-description: テスト作成、TDD、テスト駆動、RED GREEN REFACTOR、新機能の実装開始時に使用する。spec-first なテスト駆動開発ワークフローをガイドする。
+description: テスト駆動開発。RED → GREEN → REFACTOR サイクルで spec-first に実装する。
 ---
 
-spec-first のテスト駆動開発スキル。RED → GREEN → REFACTOR サイクルを厳守する。
+# テスト駆動開発（TDD）
 
-## このスキルが適用される場面
-
-- 新機能や関数の実装
-- 既存コードへのテスト追加
-- ユーザーが TDD、テスト駆動、テストファーストに言及した時
+spec-first の TDD スキル。RED → GREEN → REFACTOR サイクルを厳守する。
 
 ## ワークフロー
 
@@ -41,6 +37,7 @@ spec-first のテスト駆動開発スキル。RED → GREEN → REFACTOR サイ
 
 ## テスト規約
 
+- 配置: 対象モジュールの隣に `__tests__/` ディレクトリ
 - `describe`: 対象関数/クラス名
 - `it` / `test`: `"should [期待] when [条件]"` 形式
 - AAA パターン: Arrange → Act → Assert
