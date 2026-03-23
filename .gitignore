@@ -44,4 +44,4 @@ next-env.d.ts
 
 # tools
 .serena/
-.claude/
+.claude/settings.local.json
