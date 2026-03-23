@@ -34,6 +34,15 @@ export async function patch<T>(url: string, body: unknown): Promise<T> {
   return handleResponse<T>(res);
 }
 
+export async function put<T>(url: string, body: unknown): Promise<T> {
+  const res = await fetch(url, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  return handleResponse<T>(res);
+}
+
 export async function del<T>(url: string): Promise<T> {
   const res = await fetch(url, { method: "DELETE" });
   return handleResponse<T>(res);

@@ -57,14 +57,39 @@ spec → openapi → prisma → 実装コード
 
 ## API パターン
 
-- サーバー側ユーティリティ: `src/lib/api-utils.ts`
+### createHandler（推奨）
+
+ルートハンドラーは `createHandler()` ビルダーで宣言的に定義する。
+詳細は `.claude/rules/api.md` を参照。
+
+```typescript
+import { createHandler } from "@/lib/api/handler";
+import { container } from "@/lib/api/container";
+
+export const GET = createHandler()
+  .withAuth()
+  .withQuery(schema)
+  .handle(async ({ userId, query }) => {
+    return container.items.getByUserId(userId);
+  });
+```
+
+### サービス層 + DI コンテナ
+
+- サービス: `src/lib/services/{domain}-service.ts` — PrismaClient を DI で受け取る
+- コンテナ: `src/lib/api/container.ts` — サービスの生成と依存注入を一元管理
+- ルートハンドラーは `container.{service}.{method}()` 経由でサービスを呼ぶ
+
+### レガシーユーティリティ
+
+- サーバー側: `src/lib/api-utils.ts`
   - `AppError` — ステータスコード付きカスタムエラー
   - `getSessionUserId()` — セッションからユーザーID取得
   - `handleError()` — エラーを NextResponse に変換
   - `parseBody()` — リクエストボディの Zod バリデーション
-- クライアント側ユーティリティ: `src/lib/client/api.ts`
-  - `ApiError` / `post()` / `patch()` / `del()`
-- SWR フェッチャー: `src/lib/fetcher.ts`
+- クライアント側: `src/lib/client/api.ts`
+  - `ApiError` / `post()` / `put()` / `patch()` / `del()`
+- SWR フェッチャー: `src/lib/fetcher.ts`（401 時は自動で `/login` にリダイレクト）
 - フォーム送信: `src/lib/hooks/form-utils.ts`（`submitForm()` で toast + エラー処理を統一）
 
 ## レイアウトグループ
