@@ -1,5 +1,5 @@
-// import { prisma } from "@/lib/prisma";
-// import { ExampleService } from "@/lib/services/example-service";
+import { prisma } from "@/lib/prisma";
+import { AuthService } from "@/lib/services/auth-service";
 
 /**
  * DI コンテナ
@@ -12,31 +12,30 @@
  * // 1. src/lib/services/ にサービスクラスを作成
  * // 2. ここに getter を追加
  * //
- * // import { prisma } from "@/lib/prisma";
- * // import { UsersService } from "@/lib/services/users-service";
+ * // import { PointService } from "@/lib/services/point-service";
  * //
  * // export const container = {
- * //   get users() {
- * //     return new UsersService(prisma);
+ * //   ...既存のサービス,
+ * //   get points() {
+ * //     return new PointService(prisma);
  * //   },
  * // };
  *
  * @example
  * // ルートハンドラーからの使用:
  * // import { container } from "@/lib/api/container";
- * // const items = await container.items.getByUserId(userId);
+ * // const user = await container.auth.register(email, password, name);
  *
  * @example
  * // テスト時のモック:
  * // const mockContainer = {
- * //   items: { getByUserId: vi.fn().mockResolvedValue([]) },
+ * //   auth: { register: vi.fn(), authenticate: vi.fn() },
  * // };
  */
 export const container = {
-  // サービスをここに追加:
-  // get example() {
-  //   return new ExampleService(prisma);
-  // },
+  get auth() {
+    return new AuthService(prisma);
+  },
 };
 
 export type Container = typeof container;
