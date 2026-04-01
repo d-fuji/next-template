@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,14 +21,16 @@ type Mode = "login" | "register";
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") ?? "/dashboard";
   const [mode, setMode] = useState<Mode>("login");
 
   return (
     <div className="space-y-6">
       {mode === "login" ? (
-        <LoginFields onSignedIn={() => router.replace("/dashboard")} />
+        <LoginFields onSignedIn={() => router.replace(callbackUrl)} callbackUrl={callbackUrl} />
       ) : (
-        <RegisterFields onSignedIn={() => router.replace("/dashboard")} />
+        <RegisterFields onSignedIn={() => router.replace(callbackUrl)} callbackUrl={callbackUrl} />
       )}
 
       <p className="text-center text-sm text-muted-foreground">
@@ -65,7 +67,7 @@ export function LoginForm() {
       <Button
         variant="outline"
         className="w-full"
-        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        onClick={() => signIn("google", { callbackUrl })}
       >
         <GoogleIcon />
         Google でログイン
@@ -74,7 +76,7 @@ export function LoginForm() {
   );
 }
 
-function LoginFields({ onSignedIn }: { onSignedIn: () => void }) {
+function LoginFields({ onSignedIn, callbackUrl }: { onSignedIn: () => void; callbackUrl: string }) {
   const {
     register,
     handleSubmit,
@@ -87,6 +89,7 @@ function LoginFields({ onSignedIn }: { onSignedIn: () => void }) {
       email: data.email,
       password: data.password,
       redirect: false,
+      callbackUrl,
     });
     if (result?.error) {
       setError("root", { message: "メールアドレスまたはパスワードが正しくありません" });
@@ -120,7 +123,13 @@ function LoginFields({ onSignedIn }: { onSignedIn: () => void }) {
   );
 }
 
-function RegisterFields({ onSignedIn }: { onSignedIn: () => void }) {
+function RegisterFields({
+  onSignedIn,
+  callbackUrl,
+}: {
+  onSignedIn: () => void;
+  callbackUrl: string;
+}) {
   const {
     register,
     handleSubmit,
@@ -135,6 +144,7 @@ function RegisterFields({ onSignedIn }: { onSignedIn: () => void }) {
         email: data.email,
         password: data.password,
         redirect: false,
+        callbackUrl,
       });
       if (result?.error) {
         setError("root", { message: "登録は完了しましたが、ログインに失敗しました" });
