@@ -14,7 +14,7 @@ export class AuthService {
 
   /** ユーザー登録 */
   async register(email: string, password: string, name: string) {
-    const { AppError } = await import("@/lib/api-utils");
+    const { AppError } = await import("@/lib/api/errors");
 
     const existing = await this.prisma.user.findUnique({ where: { email } });
     if (existing) {

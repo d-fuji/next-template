@@ -54,7 +54,10 @@ npm run dev
 | `npm run format:check`      | Prettier チェック            |
 | `npm run test`              | テスト実行                   |
 | `npm run test:watch`        | テスト watch モード          |
+| `npm run test:e2e`          | E2E テスト実行（Playwright） |
+| `npm run test:e2e:ui`       | E2E テスト UI モード         |
 | `npm run db:generate`       | Prisma Client 再生成         |
+| `npm run db:studio`         | Prisma Studio 起動           |
 | `npm run db:migrate`        | マイグレーション作成・適用   |
 | `npm run db:migrate:status` | マイグレーション状況確認     |
 | `npm run db:seed`           | シードデータ投入             |
@@ -81,18 +84,21 @@ src/
 │   ├── molecules/          # atoms を組合せた小単位
 │   ├── organisms/          # 独立した UI ブロック
 │   └── templates/          # ページレイアウト
+├── middleware.ts            # 認証ミドルウェア
 ├── lib/
-│   ├── api/                # createHandler / DI コンテナ
+│   ├── api/                # createHandler / DI コンテナ / エラー / rate-limit
+│   ├── actions/            # Server Actions
 │   ├── services/           # サービス層（ビジネスロジック）
 │   ├── auth.ts             # Auth.js 設定
-│   ├── auth-service.ts     # 認証ロジック
+│   ├── env.ts              # 環境変数バリデーション（@t3-oss/env-nextjs）
 │   ├── prisma.ts           # Prisma クライアント
 │   ├── client/             # クライアント側 API ユーティリティ
 │   ├── hooks/              # カスタムフック
+│   ├── types/              # 型定義
 │   ├── constants/          # 共有定数
 │   └── validations/        # Zod スキーマ
-├── types/                  # 型定義
 └── mocks/                  # MSW モック
+e2e/                        # Playwright E2E テスト
 prisma/                     # schema / seed / migrations
 docs/
 ├── openapi.yaml            # API 仕様

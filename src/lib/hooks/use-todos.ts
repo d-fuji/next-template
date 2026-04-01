@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import { post, patch, del } from "@/lib/client/api";
-import type { Todo } from "@/types/api";
+import type { Todo } from "@/lib/types/api";
 
 type TodosResponse = { todos: Todo[] };
 type TodoResponse = { todo: Todo };

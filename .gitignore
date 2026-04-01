@@ -42,6 +42,12 @@ next-env.d.ts
 
 /src/generated/prisma
 
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
 # tools
 .serena/
 .claude/settings.local.json

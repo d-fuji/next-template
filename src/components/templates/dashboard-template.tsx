@@ -1,6 +1,6 @@
 import { AddTodoForm } from "@/components/organisms/add-todo-form";
 import { TodoList } from "@/components/organisms/todo-list";
-import type { Todo } from "@/types/api";
+import type { Todo } from "@/lib/types/api";
 
 type DashboardTemplateProps = {
   todos: Todo[];

@@ -3,7 +3,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import type { Todo } from "@/types/api";
+import type { Todo } from "@/lib/types/api";
 
 type TodoItemProps = {
   todo: Todo;

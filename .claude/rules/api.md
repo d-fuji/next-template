@@ -103,13 +103,29 @@ const mockContainer = {
 };
 ```
 
-## レガシーユーティリティ（新規コードでは使わない）
+## エラークラス
 
-以下は旧 API で、新規コードでは `createHandler()` + `container` を使うこと。
+`AppError` は `src/lib/api/errors.ts` で定義。サービス層・ハンドラー層の両方で使用する。
+
+```typescript
+import { AppError } from "@/lib/api/errors";
+throw new AppError("リソースが見つかりません", 404);
+```
+
+## Server Actions
+
+API Route の代替として `src/lib/actions/` に Server Actions を定義できる。
+フォームの progressive enhancement やクライアントからの直接呼び出しに対応。
+
+```typescript
+import { createTodo } from "@/lib/actions/todo-actions";
+await createTodo({ title: "新しいタスク" });
+```
+
+## クライアント側ユーティリティ
 
 | ファイル | 内容 |
 |---------|------|
-| `src/lib/api-utils.ts` | `AppError`, `getSessionUserId()`, `handleError()`, `parseBody()` |
-| `src/lib/client/api.ts` | `ApiError`, `post()`, `put()`, `patch()`, `del()` |
+| `src/lib/client/api.ts` | `get()`, `post()`, `put()`, `patch()`, `del()` + `ApiError` |
 | `src/lib/fetcher.ts` | SWR フェッチャー（401 時は自動で `/login` にリダイレクト） |
 | `src/lib/hooks/form-utils.ts` | `submitForm()` で toast + エラー処理を統一 |

@@ -16,6 +16,11 @@ async function handleResponse<T>(res: Response): Promise<T> {
   return data as T;
 }
 
+export async function get<T>(url: string): Promise<T> {
+  const res = await fetch(url);
+  return handleResponse<T>(res);
+}
+
 export async function post<T>(url: string, body: unknown): Promise<T> {
   const res = await fetch(url, {
     method: "POST",

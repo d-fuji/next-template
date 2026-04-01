@@ -4,7 +4,7 @@ import { useState } from "react";
 import { TodoItem } from "@/components/molecules/todo-item";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { Todo } from "@/types/api";
+import type { Todo } from "@/lib/types/api";
 
 type Filter = "all" | "active" | "completed";
 

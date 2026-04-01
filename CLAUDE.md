@@ -24,7 +24,9 @@
 | `npm run format` | Prettier フォーマット |
 | `npx vitest run` | テスト全体実行 |
 | `npx vitest run <path>` | テスト個別実行 |
+| `npm run test:e2e` | E2E テスト実行（Playwright） |
 | `npx prisma migrate dev` | DB マイグレーション |
+| `npm run db:studio` | Prisma Studio 起動 |
 
 ## ルール
 

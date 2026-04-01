@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
-import { AppError } from "@/lib/api-utils";
+import { AppError } from "@/lib/api/errors";
 
 /**
  * API ハンドラービルダー

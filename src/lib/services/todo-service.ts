@@ -45,7 +45,7 @@ export class TodoService {
 
   /** 所有権を検証 */
   private async ensureOwnership(id: number, userId: string) {
-    const { AppError } = await import("@/lib/api-utils");
+    const { AppError } = await import("@/lib/api/errors");
     const todo = await this.prisma.todo.findUnique({
       where: { id },
       select: { userId: true },

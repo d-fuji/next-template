@@ -1,6 +1,7 @@
 ---
 paths:
   - "src/**"
+  - "e2e/**"
   - "**/*.test.*"
   - "**/*.spec.*"
 ---
@@ -41,10 +42,28 @@ paths:
 - 全体: `npx vitest run`
 - 個別: `npx vitest run <path>`
 
+## テスト実行
+
+- 全体 (unit): `npx vitest run`
+- 個別 (unit): `npx vitest run <path>`
+- E2E: `npm run test:e2e`
+- E2E UI: `npm run test:e2e:ui`
+
 ## テストツール
 
-- **MSW**: `src/mocks/server.ts` でモック定義
-- **SWR テスト**: `SWRTestProvider`（`src/lib/test-utils.tsx`）でキャッシュ分離
+| ツール | 用途 | 配置 |
+|--------|------|------|
+| Vitest | Unit / Integration テスト | `src/**/__tests__/` |
+| Playwright | E2E テスト | `e2e/` |
+| MSW | API モック | `src/mocks/` |
+| SWRTestProvider | SWR キャッシュ分離 | `src/lib/test-utils.tsx` |
+
+## E2E テスト
+
+- **配置**: `e2e/` ディレクトリ
+- **設定**: `playwright.config.ts`
+- **命名**: `<feature>.spec.ts`
+- クリティカルなユーザーフロー（ログイン、CRUD）を優先的にカバーする
 
 ## 禁止事項
 
