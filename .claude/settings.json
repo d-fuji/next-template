@@ -1,55 +1,62 @@
-{
-  "permissions": {
-    "allow": [
-      "*"
-    ],
-    "deny": [
-      "Bash(rm -rf *)",
-      "Bash(rm -r *)",
-      "Bash(chmod -R *)",
-      "Bash(chown -R *)",
-      "Bash(mv /* *)",
-      "Bash(cat *.env*)",
-      "Bash(echo *>.env*)",
-      "Bash(cp .env*)",
-      "Read(**/.env)",
-      "Read(**/.env.production)",
-      "Read(**/.env.local)",
-      "Bash(git push --force*)",
-      "Bash(git push *--force*)",
-      "Bash(git reset --hard*)",
-      "Bash(git clean -f*)",
-      "Bash(git checkout -- .)",
-      "Bash(git restore .)",
-      "Bash(git branch -D *)",
-      "Bash(git stash drop*)",
-      "Bash(git stash clear*)",
-      "Bash(git rebase *)",
-      "Bash(git push*)",
-      "Bash(gh pr *)",
-      "Bash(gh issue *)",
-      "Bash(npx prisma migrate reset*)",
-      "Bash(npm run db:reset*)",
-      "Bash(npx prisma db push --force-reset*)",
-      "Bash(npx prisma db execute*)",
-      "Bash(docker exec * psql * DROP*)",
-      "Bash(docker exec * psql * TRUNCATE*)",
-      "Bash(docker exec * psql * DELETE*)",
-      "Bash(npm run db:prod:*)",
-      "Bash(dotenv -e .env.production*)",
-      "Bash(docker compose down -v*)",
-      "Bash(docker compose rm*)",
-      "Bash(docker volume rm*)",
-      "Bash(docker system prune*)",
-      "Bash(curl * -X POST*)",
-      "Bash(curl * -X PUT*)",
-      "Bash(curl * -X DELETE*)",
-      "Bash(curl * -X PATCH*)",
-      "Bash(npm publish*)",
-      "Bash(npm uninstall *)",
-      "Bash(npx vercel *)",
-      "Edit(**/.claude/settings.json)",
-      "Write(**/.claude/settings.json)"
-    ]
+  {
+    "permissions": {
+      "deny": [
+        "Bash(npx prisma migrate reset*)",
+        "Bash(npm run db:reset*)",
+        "Bash(npx prisma db push --force-reset*)",
+        "Bash(npx prisma db execute*)",
+        "Bash(docker exec * psql * DROP*)",
+        "Bash(docker exec * psql * TRUNCATE*)",
+        "Bash(docker exec * psql * DELETE*)",
+        "Bash(npm run db:prod:*)",
+        "Bash(dotenv -e .env.production*)",
+        "Bash(npx vercel *)",
+        "Bash(npm publish*)"
+      ]
+    },
+    "hooks": {
+      "PostToolUse": [
+        {
+          "matcher": "Edit|Write",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "node .claude/hooks/prettier-format.js"
+            }
+          ],
+          "description": "JS/TS ファイル編集後に Prettier で自動フォーマット"
+        },
+        {
+          "matcher": "Edit",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "node .claude/hooks/console-log-warn.js"
+            }
+          ],
+          "description": "console.log 追加を警告"
+        },
+        {
+          "matcher": "Write",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "node .claude/hooks/large-file-warn.js"
+            }
+          ],
+          "description": "800行超のファイル作成を警告"
+        }
+      ],
+      "Stop": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "node .claude/hooks/console-log-audit.js"
+            }
+          ],
+          "description": "変更ファイルの console.log を監査"
+        }
+      ]
+    }
   }
-}

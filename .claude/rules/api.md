@@ -102,3 +102,14 @@ const mockContainer = {
   items: { getByUserId: vi.fn().mockResolvedValue([]) },
 };
 ```
+
+## レガシーユーティリティ（新規コードでは使わない）
+
+以下は旧 API で、新規コードでは `createHandler()` + `container` を使うこと。
+
+| ファイル | 内容 |
+|---------|------|
+| `src/lib/api-utils.ts` | `AppError`, `getSessionUserId()`, `handleError()`, `parseBody()` |
+| `src/lib/client/api.ts` | `ApiError`, `post()`, `put()`, `patch()`, `del()` |
+| `src/lib/fetcher.ts` | SWR フェッチャー（401 時は自動で `/login` にリダイレクト） |
+| `src/lib/hooks/form-utils.ts` | `submitForm()` で toast + エラー処理を統一 |

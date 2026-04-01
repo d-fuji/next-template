@@ -2,11 +2,6 @@
 
 > セットアップ・npm scripts・ディレクトリ構成は `README.md` を参照。
 
-## 運用方針
-
-- 同じミスは 2 度目で仕組みで防ぐ（ルール化 → `.claude/rules/` or `.claude/skills/`）
-- CLAUDE.md が肥大化したら `.claude/rules/` や `.claude/skills/` に分離する
-
 ## 開発フロー
 
 ### 仕様駆動開発（spec-first）
@@ -15,85 +10,79 @@
 
 **権威構造**: spec → openapi → prisma → 実装コード
 
-1. 機能仕様を `docs/specs/` に書く
-2. API 設計を `docs/openapi.yaml` に反映
-3. DB スキーマを `prisma/schema.prisma` に反映
-4. 実装コードを書く
-
 ### テスト駆動開発（TDD）
 
 `/tdd` スキルを実行してから実装を開始する。
 
-## アーキテクチャ
+## コマンド
 
-### レイアウトグループ
+| コマンド | 用途 |
+|---------|------|
+| `npm run dev` | 開発サーバー起動 |
+| `npm run build` | プロダクションビルド |
+| `npm run lint` | ESLint 実行 |
+| `npm run format` | Prettier フォーマット |
+| `npx vitest run` | テスト全体実行 |
+| `npx vitest run <path>` | テスト個別実行 |
+| `npx prisma migrate dev` | DB マイグレーション |
 
-| グループ | 用途 | 認証 |
-|---------|------|------|
-| `(app)` | メインページ | 必須（`layout.tsx` でガード → `/login` にリダイレクト） |
-| `(auth)` | ログイン等 | 不要 |
+## ルール
 
-### 認証
-
-- 設定: `src/lib/auth.ts`（Auth.js v5 / Google + Credentials / JWT 戦略）
-- サービス: `src/lib/auth-service.ts`（登録・認証ロジック）
-- バリデーション: `src/lib/validations/auth.ts`（Zod スキーマ）
-- API: `src/app/api/auth/[...nextauth]/route.ts` / `src/app/api/users/route.ts`
-- ページ: `src/app/(auth)/login/`（ログイン/登録切替 + Google OAuth）
-
-### API パターン
-
-ルートハンドラーは `createHandler()` ビルダーで宣言的に定義する。
-詳細は `.claude/rules/api.md` を参照。
-
-```typescript
-import { createHandler } from "@/lib/api/handler";
-import { container } from "@/lib/api/container";
-
-export const GET = createHandler()
-  .withAuth()
-  .withQuery(schema)
-  .handle(async ({ userId, query }) => {
-    return container.items.getByUserId(userId);
-  });
-```
-
-**サービス層 + DI コンテナ**:
-- サービス: `src/lib/services/{domain}-service.ts` — PrismaClient を DI で受け取る
-- コンテナ: `src/lib/api/container.ts` — サービスの生成と依存注入を一元管理
-- ルートハンドラーは `container.{service}.{method}()` 経由でサービスを呼ぶ
-
-**レガシーユーティリティ**（新規コードでは使わない）:
-- サーバー側: `src/lib/api-utils.ts`（`AppError`, `getSessionUserId()`, `handleError()`, `parseBody()`）
-- クライアント側: `src/lib/client/api.ts`（`ApiError`, `post()`, `put()`, `patch()`, `del()`）
-- SWR フェッチャー: `src/lib/fetcher.ts`（401 時は自動で `/login` にリダイレクト）
-- フォーム送信: `src/lib/hooks/form-utils.ts`（`submitForm()` で toast + エラー処理を統一）
-
-### Prisma・DB 運用
-
-`.claude/rules/prisma.md` を参照。DB 操作は `/db-migrate` スキルを使う。
-
-## コーディング規約
-
-### コードスタイル
-
-- Prettier: ダブルクォート・セミコロン有・trailing comma es5・printWidth 100
-- 型変換: マッパー関数を `lib/` に集約
-- DB 依存分離: DB 依存関数と非依存関数を分離
-
-### テスト
-
-- 実行: `npx vitest run`（全体）/ `npx vitest run <path>`（個別）
-- 配置: 対象モジュールの隣に `__tests__/` ディレクトリ
-  - 例: `src/lib/utils.ts` → `src/lib/__tests__/utils.test.ts`
-- MSW: `src/mocks/server.ts` でモック定義
-- SWR テスト: `SWRTestProvider`（`src/lib/test-utils.tsx`）でキャッシュ分離
-
-### 関連ルールファイル
+技術的な詳細は `.claude/rules/` に分離。`paths:` 指定により関連ファイル編集時に自動ロードされる。
 
 | ファイル | スコープ |
 |---------|---------|
-| `.claude/rules/api.md` | API 設計・createHandler・サービス層 |
-| `.claude/rules/prisma.md` | Prisma v7・マイグレーション |
-| `.claude/rules/react.md` | React Compiler・制御コンポーネント・hydration |
-| `.claude/rules/ui-architecture.md` | Atomic Design・Container/Presentation・shadcn/ui |
+| `rules/api.md` | API 設計・createHandler・サービス層・DI コンテナ |
+| `rules/auth.md` | Auth.js v5・認証ガード・レイアウトグループ |
+| `rules/prisma.md` | Prisma v7・マイグレーション |
+| `rules/react.md` | React Compiler・制御コンポーネント・hydration |
+| `rules/ui-architecture.md` | Atomic Design・Container/Presentation・shadcn/ui |
+| `rules/coding-style.md` | イミュータビリティ・ファイルサイズ制限・エラーハンドリング |
+| `rules/security.md` | セキュリティチェックリスト・シークレット管理 |
+| `rules/git-workflow.md` | コミットメッセージ形式・ブランチ戦略・PR |
+| `rules/testing.md` | テスト要件・TDD・カバレッジ目標・vitest |
+
+## スキル
+
+| スキル | 用途 |
+|-------|------|
+| `/plan` | 実装計画を作成し、ユーザー確認後に着手 |
+| `/tdd` | RED → GREEN → REFACTOR サイクルで実装 |
+| `/code-review` | コード変更をレビュー（CRITICAL〜LOW） |
+| `/build-fix` | ビルドエラー・型エラーを最小修正 |
+| `/db-migrate` | DB マイグレーション・シードデータ投入 |
+| `/add-field` | 既存モデルへのフィールド追加（全レイヤー整合性チェック） |
+| `/init` | プロジェクト初回セットアップ |
+
+## エージェント
+
+複雑なタスクは専門エージェントに委任する。`.claude/agents/` に定義。
+
+| エージェント | 用途 | 使用タイミング |
+|-------------|------|---------------|
+| `planner` | 実装計画立案 | 複雑な機能実装・リファクタリング |
+| `code-reviewer` | コードレビュー | コード変更後 |
+| `security-reviewer` | セキュリティ分析 | 認証・入力処理・API 変更時 |
+| `build-error-resolver` | ビルドエラー修正 | ビルド失敗時 |
+| `refactor-cleaner` | 不要コード削除 | コードメンテナンス時 |
+
+### 自動委任ルール
+
+- 複雑な機能リクエスト → **planner** エージェント
+- コード変更後 → **code-reviewer** エージェント
+- バグ修正・新機能 → `/tdd` スキル
+- ビルド失敗 → **build-error-resolver** エージェント
+
+## Hooks
+
+`.claude/hooks/README.md` に推奨 hooks 設定を記載。`settings.json` に手動で追加する。
+
+主な hooks:
+- **PreToolUse**: dev サーバーブロッカー、console.log 検出、git push リマインダー
+- **PostToolUse**: Prettier 自動フォーマット、console.log 警告、大ファイル警告
+- **Stop**: console.log 監査
+
+## 運用方針
+
+- 同じミスは 2 度目で仕組みで防ぐ（ルール化 → `.claude/rules/` or `.claude/skills/`）
+- CLAUDE.md はインデックスに留め、詳細は `rules/` や `skills/` に分離する
