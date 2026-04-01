@@ -1,62 +1,74 @@
-  {
-    "permissions": {
-      "deny": [
-        "Bash(npx prisma migrate reset*)",
-        "Bash(npm run db:reset*)",
-        "Bash(npx prisma db push --force-reset*)",
-        "Bash(npx prisma db execute*)",
-        "Bash(docker exec * psql * DROP*)",
-        "Bash(docker exec * psql * TRUNCATE*)",
-        "Bash(docker exec * psql * DELETE*)",
-        "Bash(npm run db:prod:*)",
-        "Bash(dotenv -e .env.production*)",
-        "Bash(npx vercel *)",
-        "Bash(npm publish*)"
-      ]
-    },
-    "hooks": {
-      "PostToolUse": [
-        {
-          "matcher": "Edit|Write",
-          "hooks": [
-            {
-              "type": "command",
-              "command": "node .claude/hooks/prettier-format.js"
-            }
-          ],
-          "description": "JS/TS ファイル編集後に Prettier で自動フォーマット"
-        },
-        {
-          "matcher": "Edit",
-          "hooks": [
-            {
-              "type": "command",
-              "command": "node .claude/hooks/console-log-warn.js"
-            }
-          ],
-          "description": "console.log 追加を警告"
-        },
-        {
-          "matcher": "Write",
-          "hooks": [
-            {
-              "type": "command",
-              "command": "node .claude/hooks/large-file-warn.js"
-            }
-          ],
-          "description": "800行超のファイル作成を警告"
-        }
-      ],
-      "Stop": [
-        {
-          "hooks": [
-            {
-              "type": "command",
-              "command": "node .claude/hooks/console-log-audit.js"
-            }
-          ],
-          "description": "変更ファイルの console.log を監査"
-        }
-      ]
-    }
+{
+  "permissions": {
+    "deny": [
+      "Bash(npx prisma migrate reset*)",
+      "Bash(npm run db:reset*)",
+      "Bash(npx prisma db push --force-reset*)",
+      "Bash(npx prisma db execute*)",
+      "Bash(docker exec * psql * DROP*)",
+      "Bash(docker exec * psql * TRUNCATE*)",
+      "Bash(docker exec * psql * DELETE*)",
+      "Bash(npm run db:prod:*)",
+      "Bash(dotenv -e .env.production*)",
+      "Bash(npx vercel *)",
+      "Bash(npm publish*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/pre-commit-quality.js"
+          }
+        ],
+        "description": "コミット前品質チェック（secrets・debugger・console.log・commit message）"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/prettier-format.js"
+          }
+        ],
+        "description": "JS/TS ファイル編集後に Prettier で自動フォーマット"
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/console-log-warn.js"
+          }
+        ],
+        "description": "console.log 追加を警告"
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/large-file-warn.js"
+          }
+        ],
+        "description": "800行超のファイル作成を警告"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/console-log-audit.js"
+          }
+        ],
+        "description": "変更ファイルの console.log を監査"
+      }
+    ]
   }
+}

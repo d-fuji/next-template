@@ -32,6 +32,7 @@
 
 | ファイル | スコープ |
 |---------|---------|
+| `rules/development-workflow.md` | Research → Plan → TDD → Review → Commit の全体フロー |
 | `rules/api.md` | API 設計・createHandler・サービス層・DI コンテナ |
 | `rules/auth.md` | Auth.js v5・認証ガード・レイアウトグループ |
 | `rules/prisma.md` | Prisma v7・マイグレーション |
@@ -50,6 +51,9 @@
 | `/tdd` | RED → GREEN → REFACTOR サイクルで実装 |
 | `/code-review` | コード変更をレビュー（CRITICAL〜LOW） |
 | `/build-fix` | ビルドエラー・型エラーを最小修正 |
+| `/verify` | ビルド・型チェック・lint・テストを一括検証 |
+| `/test-coverage` | テストカバレッジ分析・不足テスト生成 |
+| `/refactor-clean` | 不要コード検出・安全な削除 |
 | `/db-migrate` | DB マイグレーション・シードデータ投入 |
 | `/add-field` | 既存モデルへのフィールド追加（全レイヤー整合性チェック） |
 | `/init` | プロジェクト初回セットアップ |
@@ -78,9 +82,9 @@
 `.claude/hooks/README.md` に推奨 hooks 設定を記載。`settings.json` に手動で追加する。
 
 主な hooks:
-- **PreToolUse**: dev サーバーブロッカー、console.log 検出、git push リマインダー
+- **PreToolUse**: pre-commit 品質チェック（secrets 検出・debugger 検出・commit message 検証）
 - **PostToolUse**: Prettier 自動フォーマット、console.log 警告、大ファイル警告
-- **Stop**: console.log 監査
+- **Stop**: console.log 監査（テスト・設定ファイル除外）
 
 ## 運用方針
 
