@@ -1,5 +1,5 @@
-import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "../src/generated/prisma/client";
 
 const url = new URL(process.env.DATABASE_URL!);
 url.searchParams.set("connect_timeout", "120");

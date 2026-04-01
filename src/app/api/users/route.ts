@@ -1,5 +1,5 @@
-import { createHandler } from "@/lib/api/handler";
 import { container } from "@/lib/api/container";
+import { createHandler } from "@/lib/api/handler";
 import { registerSchema } from "@/lib/validations/auth";
 
 export const POST = createHandler()

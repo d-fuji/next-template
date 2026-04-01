@@ -1,7 +1,7 @@
 "use client";
 
-import { useTodos } from "@/lib/hooks/use-todos";
 import { DashboardTemplate } from "@/components/templates/dashboard-template";
+import { useTodos } from "@/lib/hooks/use-todos";
 
 export default function DashboardPage() {
   const { todos, error, isLoading, addTodo, updateTodo, deleteTodo } = useTodos();

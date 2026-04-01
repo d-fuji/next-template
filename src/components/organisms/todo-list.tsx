@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { TodoItem } from "@/components/molecules/todo-item";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Todo } from "@/lib/types/api";
+import { useState } from "react";
 
 type Filter = "all" | "active" | "completed";
 
@@ -27,8 +27,8 @@ export function TodoList({ todos, onToggle, onDelete, isLoading }: TodoListProps
   if (isLoading) {
     return (
       <div className="space-y-3">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <Skeleton key={i} className="h-14 w-full rounded-lg" />
+        {["sk-1", "sk-2", "sk-3"].map((key) => (
+          <Skeleton key={key} className="h-14 w-full rounded-lg" />
         ))}
       </div>
     );

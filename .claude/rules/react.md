@@ -14,6 +14,8 @@ paths:
 
 React Compiler が自動的にメモ化を行うため、手動の `useMemo` / `useCallback` は不要。
 
+> **注意**: 旧 ESLint 設定では `no-restricted-imports` で強制していたが、Biome 移行後はコードレビューで担保する。
+
 ```tsx
 // ✅ Good — React Compiler が必要に応じて自動メモ化する
 const filteredItems = items.filter((item) => item.isActive);

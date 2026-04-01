@@ -1,5 +1,5 @@
-import { render, type RenderOptions } from "@testing-library/react";
-import { type ReactElement } from "react";
+import { type RenderOptions, render } from "@testing-library/react";
+import type { ReactElement } from "react";
 import { SWRConfig } from "swr";
 
 function SWRTestProvider({ children }: { children: React.ReactNode }) {

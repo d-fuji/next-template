@@ -20,8 +20,9 @@
 |---------|------|
 | `npm run dev` | 開発サーバー起動 |
 | `npm run build` | プロダクションビルド |
-| `npm run lint` | ESLint 実行 |
-| `npm run format` | Prettier フォーマット |
+| `npm run lint` | Biome チェック（lint + format 確認） |
+| `npm run lint:fix` | Biome 自動修正 |
+| `npm run format` | Biome フォーマット |
 | `npx vitest run` | テスト全体実行 |
 | `npx vitest run <path>` | テスト個別実行 |
 | `npm run test:e2e` | E2E テスト実行（Playwright） |

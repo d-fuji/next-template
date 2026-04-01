@@ -1,21 +1,21 @@
 "use client";
 
-import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  loginSchema,
-  registerSchema,
-  type LoginInput,
-  type RegisterInput,
-} from "@/lib/validations/auth";
-import { post, ApiError } from "@/lib/client/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { ApiError, post } from "@/lib/client/api";
+import {
+  type LoginInput,
+  type RegisterInput,
+  loginSchema,
+  registerSchema,
+} from "@/lib/validations/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 type Mode = "login" | "register";
 
@@ -38,6 +38,7 @@ export function LoginForm() {
           <>
             アカウントをお持ちでない方は{" "}
             <button
+              type="button"
               onClick={() => setMode("register")}
               className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
             >
@@ -48,6 +49,7 @@ export function LoginForm() {
           <>
             既にアカウントをお持ちの方は{" "}
             <button
+              type="button"
               onClick={() => setMode("login")}
               className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
             >
@@ -76,7 +78,13 @@ export function LoginForm() {
   );
 }
 
-function LoginFields({ onSignedIn, callbackUrl }: { onSignedIn: () => void; callbackUrl: string }) {
+function LoginFields({
+  onSignedIn,
+  callbackUrl,
+}: {
+  onSignedIn: () => void;
+  callbackUrl: string;
+}) {
   const {
     register,
     handleSubmit,
@@ -92,7 +100,9 @@ function LoginFields({ onSignedIn, callbackUrl }: { onSignedIn: () => void; call
       callbackUrl,
     });
     if (result?.error) {
-      setError("root", { message: "メールアドレスまたはパスワードが正しくありません" });
+      setError("root", {
+        message: "メールアドレスまたはパスワードが正しくありません",
+      });
     } else {
       onSignedIn();
     }
@@ -147,12 +157,16 @@ function RegisterFields({
         callbackUrl,
       });
       if (result?.error) {
-        setError("root", { message: "登録は完了しましたが、ログインに失敗しました" });
+        setError("root", {
+          message: "登録は完了しましたが、ログインに失敗しました",
+        });
       } else {
         onSignedIn();
       }
     } catch (e) {
-      setError("root", { message: e instanceof ApiError ? e.message : "エラーが発生しました" });
+      setError("root", {
+        message: e instanceof ApiError ? e.message : "エラーが発生しました",
+      });
     }
   }
 
@@ -193,7 +207,7 @@ function RegisterFields({
 
 function GoogleIcon() {
   return (
-    <svg className="h-5 w-5" viewBox="0 0 24 24">
+    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
       <path
         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
         fill="#4285F4"

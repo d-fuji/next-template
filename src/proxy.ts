@@ -1,18 +1,16 @@
-import NextAuth from "next-auth";
-import { authConfig } from "@/lib/auth.config";
+import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
 /**
- * 認証ミドルウェア（Edge Runtime）
+ * 認証プロキシ（Node.js ランタイム）
  *
- * Edge Runtime は Node.js ネイティブモジュール非対応のため、
- * Prisma を含まない authConfig を使う。
+ * Next.js 16 で middleware.ts は非推奨。proxy.ts を使う。
+ * proxy は Node.js ランタイムのため、Prisma を含む full auth が使用可能。
+ * （Edge Runtime が必要な場合は middleware.ts のまま維持し authConfig を使うこと）
  *
  * 保護ルートへの未認証アクセスを /login にリダイレクトし、
  * 保護 API には 401 を返す。
  */
-const { auth } = NextAuth(authConfig);
-
 export default auth((req) => {
   const { pathname } = req.nextUrl;
   const isLoggedIn = !!req.auth?.user;

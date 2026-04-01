@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
-import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
+import { redirect } from "next/navigation";
 import { LoginForm } from "./login-form";
 
 export default async function LoginPage() {

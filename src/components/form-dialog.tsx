@@ -1,14 +1,14 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import type { ReactNode } from "react";
 
 type Props = {
   open: boolean;

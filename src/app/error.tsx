@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
-import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useEffect } from "react";
 
 type Props = {
   error: Error & { digest?: string };
