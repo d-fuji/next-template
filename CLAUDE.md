@@ -20,8 +20,8 @@
 |---------|------|
 | `npm run dev` | 開発サーバー起動 |
 | `npm run build` | プロダクションビルド |
-| `npm run lint` | Biome チェック（lint + format 確認） |
-| `npm run lint:fix` | Biome 自動修正 |
+| `npm run lint` | oxlint + Biome format チェック |
+| `npm run lint:fix` | oxlint 自動修正 + Biome format 適用 |
 | `npm run format` | Biome フォーマット |
 | `npx vitest run` | テスト全体実行 |
 | `npx vitest run <path>` | テスト個別実行 |

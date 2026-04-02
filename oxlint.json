@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "plugins": ["react", "react-hooks", "typescript", "nextjs", "jsx-a11y"],
+  "ignorePatterns": [
+    "src/generated/**",
+    "src/components/ui/**",
+    ".next/**",
+    "node_modules/**",
+    "out/**"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "no-console": "warn",
+    "no-debugger": "error",
+    "eqeqeq": ["error", "always"],
+    "prefer-const": "error",
+    "no-var": "error",
+    "typescript/no-explicit-any": "warn",
+    "typescript/no-non-null-assertion": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "nextjs/no-img-element": "error",
+    "nextjs/no-html-link-for-pages": "error"
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**", "e2e/**", "prisma/**"],
+      "rules": {
+        "no-console": "off",
+        "typescript/no-explicit-any": "off"
+      }
+    }
+  ]
+}

@@ -33,10 +33,10 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/prettier-format.js"
+            "command": "node .claude/hooks/oxlint-biome-format.js"
           }
         ],
-        "description": "JS/TS ファイル編集後に Prettier で自動フォーマット"
+        "description": "JS/TS ファイル編集後に oxlint でリント → Biome でフォーマット"
       },
       {
         "matcher": "Edit",

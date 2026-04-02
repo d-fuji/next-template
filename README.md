@@ -49,10 +49,10 @@ npm run dev
 | `npm run dev`               | 開発サーバー起動（Turbopack）|
 | `npm run build`             | プロダクションビルド         |
 | `npm run start`             | ビルド後サーバー起動         |
-| `npm run lint`              | Biome チェック（lint + format 確認） |
-| `npm run lint:fix`          | Biome 自動修正               |
-| `npm run format`            | Biome フォーマット            |
-| `npm run format:check`      | Biome フォーマット確認        |
+| `npm run lint`              | oxlint + Biome format チェック      |
+| `npm run lint:fix`          | oxlint 自動修正 + Biome format 適用 |
+| `npm run format`            | Biome フォーマット                  |
+| `npm run format:check`      | Biome フォーマット確認              |
 | `npm run test`              | テスト実行                   |
 | `npm run test:watch`        | テスト watch モード          |
 | `npm run test:e2e`          | E2E テスト実行（Playwright） |
