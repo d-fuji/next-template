@@ -86,7 +86,7 @@
 
 主な hooks:
 - **PreToolUse**: pre-commit 品質チェック（secrets 検出・debugger 検出・commit message 検証）
-- **PostToolUse**: Prettier 自動フォーマット、console.log 警告、大ファイル警告
+- **PostToolUse**: oxlint リント → Biome フォーマット、console.log 警告、大ファイル警告
 - **Stop**: console.log 監査（テスト・設定ファイル除外）
 
 ## 運用方針

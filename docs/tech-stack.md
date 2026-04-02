@@ -26,8 +26,8 @@
 | Vitest          | 4          | テストランナー               |
 | Testing Library | 16         | コンポーネントテスト         |
 | MSW             | 2          | API モック                   |
-| ESLint          | 9          | リンター (flat config)       |
-| Prettier        | 3          | フォーマッター               |
+| oxlint          | 0.16       | リンター                     |
+| Biome           | 1          | フォーマッター               |
 | tw-animate-css  | 1          | CSS アニメーション           |
 | bcryptjs        | 3          | パスワードハッシュ           |
 
@@ -39,20 +39,23 @@
 - `@/*` エイリアス → `./src/*`
 - `target: ES2017`
 
-### ESLint (eslint.config.mjs)
+### oxlint (oxlint.json)
 
-- ESLint 9 flat config 形式
-- Next.js core-web-vitals + TypeScript + Prettier
+- plugins: react, react-hooks, typescript, nextjs, jsx-a11y
+- rules: no-console warn, no-debugger error, react-hooks/rules-of-hooks error, nextjs/no-img-element error
 
-### Prettier (.prettierrc)
+### Biome (biome.json)
 
 ```json
 {
-  "semi": true,
-  "singleQuote": false,
-  "trailingComma": "es5",
-  "printWidth": 100,
-  "tabWidth": 2
+  "formatter": {
+    "indentStyle": "space",
+    "lineWidth": 100,
+    "quoteStyle": "double",
+    "trailingCommas": "es5",
+    "semicolons": "always"
+  },
+  "linter": { "enabled": false }
 }
 ```
 

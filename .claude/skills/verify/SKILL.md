@@ -47,7 +47,7 @@ Verdict: ALL CLEAR
 | 失敗 | 推奨アクション |
 |------|---------------|
 | 型チェック失敗 | `/build-fix` スキルを実行 |
-| Lint 失敗 | `npx eslint . --fix` で自動修正 |
+| Lint 失敗 | `npx oxlint --fix .` で自動修正 |
 | テスト失敗 | 失敗テストを調査、`/tdd` で修正 |
 | ビルド失敗 | `/build-fix` スキルを実行 |
 
